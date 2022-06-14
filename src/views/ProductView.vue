@@ -1,108 +1,13 @@
 <template>
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <navbar-component></navbar-component>
+   <navbar-component></navbar-component>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
-    <div class="max-w-xl mx-auto">
-      <!-- This example requires Tailwind CSS v2.0+ -->
-      <div class="bg-white shadow rounded-lg mt-5">
-        <div class="px-4 py-5 sm:p-6">
-          <div class="flex flex-wrap justify-center">
-            <div class="weather-box w-full">
-              <div class="weather-header flex flex-wrap flex-col items-center">
-                <div class="font-bold text-xl">{{ selectedCity.name}}</div>
-                <div class="text-sm text-gray-500 ">{{date}}</div>
-                <div class="text-sm text-gray-500 ">{{day}}</div>
-              </div>
-              <div
-                class="weather-body flex flex-wrap justify-center flex-col items-center"
-              >
-                <div class="weather-body-image">
-                  <div
-                    class="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24"
-                  >
-                  
-                    <svg
-                      class="w-32 h-32 "
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 23 23"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        :d="weatherdepends.image"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-
-                <div class="weather-body-info">
-                  <div class="flex flex-row items-center justify-center mt-6">
-                    <div class="font-medium text-6xl">{{ Math.round(weatherInfoTemp.temp)}}</div>
-                    <div class="flex flex-col items-center ml-6">
-                      <div>
-                        {{ weatherdepends.description}}
-                      </div>
-                      <div class="mt-1">
-                        <span class="text-sm"
-                          ><i class="far fa-long-arrow-up"></i
-                        ></span>
-                        <span class="text-sm font-light text-gray-500"
-                          >{{ Math.floor(weatherInfoTemp.temp_min)}}</span
-                        >
-                      </div>
-                      <div>
-                        <span class="text-sm"
-                          ><i class="far fa-long-arrow-down"></i
-                        ></span>
-                        <span class="text-sm font-light text-gray-500"
-                          >{{ Math.ceil(weatherInfoTemp.temp_max)}}</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="weather-footer"></div>
-            </div>
-
-            <div class="city-selection-box w-1/2">
-              <!-- This example requires Tailwind CSS v2.0+ -->
-              <div class="city-selection-group">
-                <div class="mt-1 relative">
-                  <select
-                    class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    aria-label="Default select example"
-                    v-model="selectedCity"
-                  >
-                    <option selected disabled>Şehir Seçiniz</option>
-                    <option
-                      v-for="(city, index) in getCities"
-                      :key="index"
-                      :value="city"
-                    >
-                      {{ city.name }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- This example requires Tailwind CSS v2.0+ -->
   <!-- Büyük Div -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
-    <h1 class="text-2xl font-bold text-gray-700 text-center">
-      Verim Sıralaması - {{ selectedCity.name}}
+    <h1 class="text-2xl font-bold text-gray-700">
+      Ürünlerimiz
     </h1>
     <!-- This example requi"res Tailwind CSS v2.0+ -->
     <div class="bg-white shadow rounded-lg mt-5">
@@ -134,7 +39,7 @@
                             </div>
                         </div>
                     </li> -->
-          <plant-card-component @readMore="openPlantModal"></plant-card-component>
+          <product-card-component></product-card-component>
           <!-- More people... -->
         </ul>
       </div>
@@ -238,7 +143,6 @@
 
   <!-- Devamı Modalı -->
   <div
-    id="plant-modal"
     class="relative z-10 modal hidden"
     aria-labelledby="modal-title"
     role="dialog"
@@ -254,21 +158,9 @@
             From: "opacity-100"
             To: "opacity-0"
         -->
-        <Transition
-          enter-active-class="ease-out duration-300"
-          enter-from-class="opacity-0"
-          enter-to-class="opacity-100"
-          leave-active-class="ease-in duration-200"
-          leave-from-class="opacity-100"
-          leave-to-class="opacity-0"
-          @after-leave="afterLeave"
-          @before-enter="beforeEnter">
-        <div
-          v-show="showPlantModal"
-          @click="showPlantModal = false"
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-        ></div>
-    </Transition>
+    <div
+      class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+    ></div>
 
     <div class="fixed z-10 inset-0 overflow-y-auto">
       <div
@@ -284,15 +176,7 @@
                     From: "opacity-100 translate-y-0 sm:scale-100"
                     To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 -->
-                <Transition
-                  enter-active-class="ease-out duration-300"
-                  enter-from-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                  enter-to-class="opacity-100 translate-y-0 sm:scale-100"
-                  leave-active-class="ease-in duration-200"
-                  leave-from-class="opacity-100 translate-y-0 sm:scale-100"
-                  leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
         <div
-        v-show="showPlantModal"
           class="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6"
         >
           <div class="sm:flex sm:items-start">
@@ -317,24 +201,28 @@
                 class="text-lg leading-6 font-medium text-gray-900"
                 id="modal-title"
               >
-                {{selectedPlant.name}}
+                İhtal Muz (KG)
               </h3>
               <div class="mt-2">
-                <p class="text-sm text-gray-500">{{ selectedPlant.description }}</p>
+                <p class="text-sm text-gray-500">
+                  Muhteşem lezzetiyle günün her saatinde keyifle tüketilebilen
+                  muz yerli, en sevilen meyvelerden biri olarak ön plana
+                  çıkıyor. Besleyiciliğinin yanı sıra oldukça doyurucu bir
+                  özelliğe sahip olan yerli muzlar, çocuklardan büyüklere kadar
+                  tüm yaş grupları tarafından sevilerek tüketiliyor.
+                </p>
               </div>
             </div>
           </div>
           <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
             <button
               type="button"
-              @click="showPlantModal = false"
               class="js-modal-close w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:ml-3 sm:w-auto sm:text-sm"
             >
               Kapat
             </button>
           </div>
         </div>
-        </Transition>
       </div>
     </div>
   </div>
@@ -342,104 +230,22 @@
 
 <script>
 import $ from "jquery";
-import PlantCardComponent from "@/components/PlantCardComponent.vue";
+import ProductCardComponent from "@/components/ProductCardComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import { mapGetters } from "vuex";
-import axiosClient from '@/axios';
-
 export default {
   data() {
-    return {
-      selectedCity: {},
-      city: null,
-      lat: 41.0053,
-      lon: 28.977,
-      weatherInfoTemp : [],
-      weatherInfo : [],
-      weatherdepends : {
-        image : "",
-        description : null,
-      },
-      plantsBySelectedCityRegion: [],
-      selectedPlant:{},
-      showPlantModal: false,
-      date: null,
-      day : null,
-    };
+    
   },
   created() {
-    // let region = selectedCity;
-      const current = new Date().toLocaleDateString('tr-TR', { month: 'long',day:'numeric', year:'numeric'})
-      const day = new Date().toLocaleDateString('tr-TR', {  weekday: 'long'})
-      this.date = current;
-      this.day = day;
+    this.$store.dispatch("callProducts");
   },
-  mounted() {
-    this.selectedCity = this.$store.state.cities.find(city => city.id === 34);
-    
-  },
-  computed: {
-    ...mapGetters(["getPlants", "getCities"]),
-
-    
-  },
+  
   components: {
-    PlantCardComponent,
-    NavbarComponent,
+    ProductCardComponent,
+    NavbarComponent
   },
-  methods: {
-    async changeSelectedCity() {
-      this.lat = this.selectedCity.latitude;
-      this.lon = this.selectedCity.longitude;
-      
-      await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=4d6c33adb0d9299425e7a10df424d423&units=metric`)
-        .then((response) => {
-          this.weatherInfo = response.data.weather[0];
-          this.weatherInfoTemp = response.data.main;
-        });
-        if(this.weatherInfo.main == "Clouds"){
-          this.weatherdepends.image = "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z";
-          this.weatherdepends.description = "Bulutlu";
-        }
-        else if(this.weatherInfo.main == "Clear"){
-          this.weatherdepends.image = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z";
-          this.weatherdepends.description = "Güneşli Hava temiz";
-        }
-        else if(this.weatherInfo.main == "Rain"){
-          this.weatherdepends.image = "M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm3 0a.5.5 0 0 1 .316.633l-1 3a.5.5 0 0 1-.948-.316l1-3a.5.5 0 0 1 .632-.317zm3 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm3 0a.5.5 0 0 1 .316.633l-1 3a.5.5 0 1 1-.948-.316l1-3a.5.5 0 0 1 .632-.317zm.247-6.998a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973zM8.5 2a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4.002 4.002 0 0 1 8.5 2z";
-          this.weatherdepends.description = "Yağmurlu";
-        }
-
-        this.setPlantsBySelectedCityRegion();
-    },
-    async setPlantsBySelectedCityRegion() {
-      const selectedCityRegion = this?.selectedCity?.region;
-
-      if (!selectedCityRegion) {
-        return;
-      }
-
-      let plants = (await axiosClient.get(`/plants?featuredRegion=${selectedCityRegion}`)).data;
-      this.$store.commit("setPlants",plants);
-
-    },
-    openPlantModal(plant) {
-      this.showPlantModal = true;
-      this.selectedPlant = plant;
-    },
-    beforeEnter() {
-      document.querySelector(`#plant-modal`).classList.remove("hidden")
-    },
-    afterLeave() {
-      document.querySelector(`#plant-modal`).classList.add("hidden")
-    },
-    
-    
-  },
-  watch: {
-    selectedCity() {
-      this.changeSelectedCity()
-    }
-  }
+ 
 };
 </script>
+ 
